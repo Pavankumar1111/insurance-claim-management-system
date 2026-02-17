@@ -1,0 +1,185 @@
+
+```
+Insurance_Workbench_Tasks.txt
+```
+
+---
+
+# 📄 Insurance Claim Management System – MySQL Workbench Tasks
+
+---
+
+## 1️⃣ DATABASE CREATION
+
+```
+CREATE DATABASE user_db;
+CREATE DATABASE policy_db;
+CREATE DATABASE claim_db;
+```
+
+---
+
+## 2️⃣ USER SERVICE DATABASE TASKS
+
+### Use Database
+
+```
+USE user_db;
+```
+
+### Verify Users Table
+
+```
+SHOW TABLES;
+DESC users;
+```
+
+### Insert Test Users
+
+```
+INSERT INTO users (name, email, password, role)
+VALUES ('User', 'user@test.com', '123', 'ROLE_USER');
+
+INSERT INTO users (name, email, password, role)
+VALUES ('Admin', 'admin@test.com', '123', 'ROLE_ADMIN');
+```
+
+### Verify Data
+
+```
+SELECT * FROM users;
+```
+
+---
+
+## 3️⃣ POLICY SERVICE DATABASE TASKS
+
+### Use Database
+
+```
+USE policy_db;
+```
+
+### Verify Table
+
+```
+SHOW TABLES;
+DESC policies;
+```
+
+### Insert Sample Policies
+
+```
+INSERT INTO policies (policy_name, premium_amount, policy_type)
+VALUES ('Health Basic', 5000, 'HEALTH');
+
+INSERT INTO policies (policy_name, premium_amount, policy_type)
+VALUES ('Car Protection', 8000, 'MOTOR');
+```
+
+### Verify
+
+```
+SELECT * FROM policies;
+```
+
+---
+
+## 4️⃣ CLAIM SERVICE DATABASE TASKS
+
+### Use Database
+
+```
+USE claim_db;
+```
+
+### Verify Table
+
+```
+SHOW TABLES;
+DESC claims;
+```
+
+### Check Claims
+
+```
+SELECT * FROM claims;
+```
+
+---
+
+## 5️⃣ TESTING TASKS CHECKLIST
+
+### ✔ After Starting All Services
+
+* Check Eureka Dashboard → [http://localhost:8761](http://localhost:8761)
+* Verify all 4 services registered
+* Test login → get JWT token
+* Test USER access
+* Test ADMIN access
+
+---
+
+## 6️⃣ ROLE BASED VALIDATION CHECK
+
+### USER
+
+* Can create claim ✅
+* Cannot approve claim ❌
+
+### ADMIN
+
+* Can approve claim ✅
+* Can view claims ✅
+
+---
+
+## 7️⃣ DATABASE VERIFICATION AFTER OPERATIONS
+
+After claim creation:
+
+```
+USE claim_db;
+SELECT * FROM claims;
+```
+
+After approval:
+
+```
+SELECT id, status FROM claims;
+```
+
+---
+
+## 8️⃣ CLEANUP COMMANDS (If Needed)
+
+```
+DELETE FROM users;
+DELETE FROM policies;
+DELETE FROM claims;
+```
+
+Reset auto increment:
+
+```
+ALTER TABLE users AUTO_INCREMENT = 1;
+ALTER TABLE policies AUTO_INCREMENT = 1;
+ALTER TABLE claims AUTO_INCREMENT = 1;
+```
+
+---
+
+# ✅ FINAL WORKBENCH CHECKLIST
+
+Before Presentation:
+
+* Databases created
+* Tables auto-created by JPA
+* Test data inserted
+* Role values correct (ROLE_USER / ROLE_ADMIN)
+* Claims reflecting correct status
+* No duplicate records
+* No NULL values in important fields
+
+---
+

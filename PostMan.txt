@@ -1,0 +1,333 @@
+
+```
+Insurance_Postman_Testing_Checklist.txt
+```
+
+---
+
+# 📄 Insurance Claim Management System
+
+# Postman Testing Checklist
+
+---
+
+# ✅ 0️⃣ PRE-START CHECK
+
+Before testing:
+
+* Start Eureka Server (8761)
+* Start user-service (8081)
+* Start policy-service (8082)
+* Start claim-service (8083)
+* Start api-gateway (8080)
+* Confirm all services registered in Eureka
+
+Open:
+
+```
+http://localhost:8761
+```
+
+---
+
+# ✅ 1️⃣ BASE URL (Always Use Gateway)
+
+```
+http://localhost:8080
+```
+
+---
+
+# ✅ 2️⃣ USER REGISTRATION
+
+### 🔹 Endpoint
+
+```
+POST /users/register
+```
+
+### 🔹 Full URL
+
+```
+http://localhost:8080/users/register
+```
+
+### 🔹 Body (JSON)
+
+USER:
+
+```json
+{
+  "name": "User",
+  "email": "user@test.com",
+  "password": "123",
+  "role": "ROLE_USER"
+}
+```
+
+ADMIN:
+
+```json
+{
+  "name": "Admin",
+  "email": "admin@test.com",
+  "password": "123",
+  "role": "ROLE_ADMIN"
+}
+```
+
+### ✔ Expected Result
+
+* 200 OK
+* User stored in database
+
+---
+
+# ✅ 3️⃣ LOGIN (GET JWT TOKEN)
+
+### 🔹 Endpoint
+
+```
+POST /users/login
+```
+
+### 🔹 URL
+
+```
+http://localhost:8080/users/login
+```
+
+### 🔹 Body
+
+```json
+{
+  "email": "user@test.com",
+  "password": "123"
+}
+```
+
+### ✔ Expected Result
+
+* JWT token returned as string
+
+---
+
+# ✅ 4️⃣ SAVE TOKENS
+
+Copy and store:
+
+```
+USER_TOKEN = <paste_here>
+ADMIN_TOKEN = <paste_here>
+```
+
+---
+
+# ✅ 5️⃣ CREATE POLICY (ADMIN ONLY IF RESTRICTED)
+
+### 🔹 Endpoint
+
+```
+POST /policies
+```
+
+### 🔹 Headers
+
+```
+Authorization: Bearer ADMIN_TOKEN
+Content-Type: application/json
+```
+
+### 🔹 Body
+
+```json
+{
+  "policyName": "Health Basic",
+  "premiumAmount": 5000,
+  "policyType": "HEALTH"
+}
+```
+
+### ✔ Expected
+
+* 200 OK
+
+### ❌ Test With USER_TOKEN
+
+* Should return 403 Forbidden (if restricted)
+
+---
+
+# ✅ 6️⃣ CREATE CLAIM (USER ONLY)
+
+### 🔹 Endpoint
+
+```
+POST /claims
+```
+
+### 🔹 Headers
+
+```
+Authorization: Bearer USER_TOKEN
+Content-Type: application/json
+```
+
+### 🔹 Body
+
+```json
+{
+  "policyId": 1,
+  "userId": 1,
+  "claimAmount": 3000
+}
+```
+
+### ✔ Expected
+
+* Status auto set to PENDING
+* createdDate auto set
+
+---
+
+# ✅ 7️⃣ VIEW CLAIMS
+
+### 🔹 Endpoint
+
+```
+GET /claims
+```
+
+### 🔹 Headers
+
+```
+Authorization: Bearer USER_TOKEN
+```
+
+### ✔ Expected
+
+* Claims list returned
+
+Test again with ADMIN_TOKEN
+✔ Should also work
+
+---
+
+# ✅ 8️⃣ APPROVE CLAIM (ADMIN ONLY)
+
+### 🔹 Endpoint
+
+```
+PUT /claims/{id}/APPROVED
+```
+
+Example:
+
+```
+http://localhost:8080/claims/1/APPROVED
+```
+
+### 🔹 Headers
+
+```
+Authorization: Bearer ADMIN_TOKEN
+```
+
+### ✔ Expected
+
+* Status changed to APPROVED
+
+### ❌ Test With USER_TOKEN
+
+* Should return 403 Forbidden
+
+---
+
+# ✅ 9️⃣ UNAUTHORIZED ACCESS TEST
+
+Remove Authorization header and call:
+
+```
+GET /claims
+```
+
+### ✔ Expected
+
+* 401 Unauthorized
+
+---
+
+# ✅ 🔟 INVALID TOKEN TEST
+
+Modify token slightly and call API.
+
+### ✔ Expected
+
+* 401 Unauthorized
+
+---
+
+# ✅ 1️⃣1️⃣ ROLE VALIDATION MATRIX
+
+| Action        | USER | ADMIN |
+| ------------- | ---- | ----- |
+| Login         | ✅    | ✅     |
+| Create Policy | ❌    | ✅     |
+| Create Claim  | ✅    | ❌     |
+| Approve Claim | ❌    | ✅     |
+| View Claims   | ✅    | ✅     |
+
+---
+
+# ✅ 1️⃣2️⃣ DATABASE VERIFICATION
+
+After each operation verify in MySQL:
+
+```
+USE claim_db;
+SELECT * FROM claims;
+```
+
+Check:
+
+* Status updates correctly
+* No null fields
+* Data consistent
+
+---
+
+# 🎯 FINAL PRESENTATION FLOW (Recommended Demo Order) After Frontend implementation
+
+1. Show Eureka dashboard
+2. Register USER & ADMIN
+3. Login as USER
+4. Create claim
+5. Try approving → fail
+6. Login as ADMIN
+7. Approve claim → success
+8. Show DB update in Workbench
+
+This flow clearly demonstrates:
+
+* Microservices
+* Gateway routing
+* JWT authentication
+* Role-based authorization
+* Database persistence
+
+---
+
+# 🏁 SYSTEM STATUS
+
+If all above tests pass:
+
+✔ Authentication Working
+✔ Authorization Working
+✔ Gateway Routing Working
+✔ Eureka Discovery Working
+✔ Database Persistence Working
+
+Your backend is fully validated.
+
+---
+
