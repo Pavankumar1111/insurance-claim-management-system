@@ -1,0 +1,63 @@
+<div class="login-container">
+  <!-- Home Button -->
+  <button class="btn-home" (click)="navigateToHome()" title="Back to Home">
+    ← Home
+  </button>
+
+  <div class="login-card">
+    <h2>Insurance Claim Management System</h2>
+    <p class="subtitle">Login to your account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="error-text">
+          <small *ngIf="f['email'].errors['required']">Email is required</small>
+          <small *ngIf="f['email'].errors['email']">Invalid email format</small>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="error-text">
+          <small *ngIf="f['password'].errors['required']">Password is required</small>
+          <small *ngIf="f['password'].errors['minlength']"
+            >Password must be at least 6 characters</small
+          >
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-login" [disabled]="loading">
+        <span *ngIf="!loading">Login</span>
+        <span *ngIf="loading">Logging in...</span>
+      </button>
+    </form>
+
+    <!-- Register Link -->
+    <div class="register-link">
+      <p>Don't have an account? <a (click)="navigateToRegister()">Register here</a></p>
+    </div>
+  </div>
+</div>

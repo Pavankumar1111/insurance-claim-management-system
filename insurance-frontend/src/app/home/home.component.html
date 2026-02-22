@@ -1,0 +1,118 @@
+<div class="home-container">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-brand">
+        <h1>Insurance Claim Manager</h1>
+      </div>
+      <div class="navbar-menu">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#services" class="nav-link">Services</a>
+        <button class="btn-login" (click)="navigate('/login')" *ngIf="!isLoggedIn">Login</button>
+        <button class="btn-register" (click)="navigate('/register')" *ngIf="!isLoggedIn">Register</button>
+        <a routerLink="/dashboard" class="nav-link" *ngIf="isLoggedIn">Dashboard</a>
+        <button class="btn-logout" (click)="logout()" *ngIf="isLoggedIn">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Claim Management Simplified</h2>
+      <p>Efficient, transparent, and secure insurance claim processing for the modern era</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" (click)="navigate('/login')" *ngIf="!isLoggedIn">Login</button>
+        <button class="btn-secondary" (click)="navigate('/register')" *ngIf="!isLoggedIn">Register Now</button>
+        <button class="btn-primary" (click)="navigate('/dashboard')" *ngIf="isLoggedIn">Dashboard</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h3>Why Our Platform</h3>
+        <p>Experience the difference with our comprehensive claims management solution</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h4>Quick Processing</h4>
+          <p>Claims processed rapidly without compromising accuracy. Average resolution time reduced by 70%.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h4>Bank-Level Security</h4>
+          <p>Military-grade encryption and multi-layer security protocols protect all your sensitive information.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👁️</div>
+          <h4>Real-Time Tracking</h4>
+          <p>Monitor your claims status in real-time with instant notifications and detailed progress updates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h4>Professional Support</h4>
+          <p>Dedicated support team available 24/7 to assist with any questions or concerns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="section-container">
+      <div class="section-header">
+        <h3>Our Services</h3>
+        <p>Comprehensive insurance claim management solutions tailored for your needs</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h4>Claim Filing</h4>
+          <p>Simple and intuitive claim submission process with real-time validation and instant confirmation.</p>
+          <ul>
+            <li>Online claim submission</li>
+            <li>Document upload support</li>
+            <li>Quick confirmation</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h4>Claim Tracking</h4>
+          <p>Complete visibility into your claim lifecycle from submission to settlement.</p>
+          <ul>
+            <li>Real-time status updates</li>
+            <li>Progress notifications</li>
+            <li>Detailed timeline</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h4>Policy Management</h4>
+          <p>Manage all your insurance policies in one centralized location with easy access.</p>
+          <ul>
+            <li>Policy overview</li>
+            <li>Coverage details</li>
+            <li>Document storage</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h4>Settlement Processing</h4>
+          <p>Fast and transparent claim settlement with multiple payment options available.</p>
+          <ul>
+            <li>Quick approval process</li>
+            <li>Multiple payment methods</li>
+            <li>Settlement confirmation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; {{ year }} Insurance Claim Manager. All rights reserved. | Privacy Policy | Terms of Service</p>
+    </div>
+  </footer>
+</div>
