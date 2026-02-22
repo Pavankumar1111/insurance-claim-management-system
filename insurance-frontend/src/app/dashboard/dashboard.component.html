@@ -1,0 +1,85 @@
+<div class="dashboard-container">
+  <!-- Header/Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="navbar-brand">
+        <h1>Insurance Claim Manager</h1>
+      </div>
+      <div class="navbar-user">
+        <span class="welcome-text">Welcome, {{ user?.firstName }} {{ user?.lastName }}</span>
+        <button class="btn-logout" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard Content -->
+  <div class="dashboard-content">
+    <div class="welcome-section">
+      <h2>Dashboard</h2>
+      <p>Manage your insurance claims and policies</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon claims-icon">📋</div>
+        <h3>Total Claims</h3>
+        <p class="stat-value">0</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon pending-icon">⏳</div>
+        <h3>Pending Claims</h3>
+        <p class="stat-value">0</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon approved-icon">✓</div>
+        <h3>Approved Claims</h3>
+        <p class="stat-value">0</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon policies-icon">📑</div>
+        <h3>Active Policies</h3>
+        <p class="stat-value">0</p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions-section">
+      <h3>Quick Actions</h3>
+      <div class="action-buttons">
+        <button class="action-btn primary" (click)="navigateTo('/claims/new')">
+          <span class="icon">➕</span>
+          <span>File New Claim</span>
+        </button>
+        <button class="action-btn secondary" (click)="navigateTo('/claims')">
+          <span class="icon">📋</span>
+          <span>View My Claims</span>
+        </button>
+        <button class="action-btn secondary" (click)="navigateTo('/policies')">
+          <span class="icon">📑</span>
+          <span>View My Policies</span>
+        </button>
+        <button class="action-btn secondary" (click)="navigateTo('/profile')">
+          <span class="icon">👤</span>
+          <span>My Profile</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-section">
+      <h3>Recent Activity</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <p class="activity-text">Welcome to Insurance Claim Management System</p>
+          <p class="activity-time">Today</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; {{ year }} Insurance Claim Management System. All rights reserved.</p>
+  </footer>
+</div>
